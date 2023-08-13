@@ -25,6 +25,7 @@ export const postUsers = (user) => async (dispatch) => {
 export const updateUsers = (id, user) => async (dispatch) => {
   try {
     const { data } = await API.patch(`/${id}`, user);
+
     dispatch({ type: UPDATE, payload: data });
   } catch (error) {
     console.log(error.message);

@@ -23,27 +23,33 @@ const Form = ({ currentId, setCurrentId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(1234);
     if (currentId) {
-      dispatch(updateUsers(currentId, userData));
+      if (userData) dispatch(updateUsers(currentId, userData));
     } else {
-      dispatch(postUsers(userData));
+      if (userData) dispatch(postUsers(userData));
     }
-
+    clear();
     navigate("/");
-    // setCurrentId(null);
-    // setUserData({
-    //   name: "",
-    //   phone: "",
-    //   email: "",
-    //   hobbies: "",
-    // });
-    // console.log(currentId);
+  };
+
+  const clear = () => {
+    setCurrentId(null);
+    setUserData({
+      name: "",
+      phone: "",
+      email: "",
+      hobbies: "",
+    });
   };
   return (
     <div className="modal">
       <div className="form-container">
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form" onSubmit={(e) => handleSubmit(e)}>
+          <div>
+            <span className="cross-btn" onClick={() => navigate("/")}>
+              &times;
+            </span>
+          </div>
           <div className="input-field">
             <label for="name">Name</label>
             <input

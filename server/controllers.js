@@ -54,16 +54,20 @@ export const deleteUser = async (req, res) => {
 export const sendEmail = async (req, res) => {
   const ids = req.body;
 
-  ids.ids.map((id) => {
+  ids.map((id) => {
     if (!mongoose.Types.ObjectId.isValid(id))
       return res.status(404).send("No user with this id");
   });
 
-  const users = await User.find({ _id: { $in: ids.ids } });
+  const users = await User.find({ _id: { $in: ids } });
 
   let htmlContent = "";
   users.map((user) => {
-    htmlContent += user.name + " ";
+    htmlContent += "Name: " + user.name + "\n";
+    htmlContent += "Phone: " + user.phone + "\n";
+    htmlContent += "Email: " + user.email + "\n";
+    htmlContent += "Hobbies: " + user.hobbies + "\n";
+    htmlContent += "\n";
   });
 
   const transporter = nodemailer.createTransport({
@@ -76,7 +80,6 @@ export const sendEmail = async (req, res) => {
       refreshToken: process.env.REFRESH_TOKEN,
     },
   });
-  //64d5f360405a1f07cf5bf98c,64d5f355405a1f07cf5bf98a
   const mailConfigurations = {
     from: process.env.USER_MAIL,
     to: process.env.CLIENT_MAIL,
