@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { FETCH_ALL, CREATE, UPDATE, DELETE } from "./constants.js";
 
-const API = axios.create({ baseURL: "http://localhost:5000/api" });
+const API = axios.create({ baseURL: "https://theitstudio-uwbe.onrender.com/api" });
 
 export const getUsers = () => async (dispatch) => {
   try {
